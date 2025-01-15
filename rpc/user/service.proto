@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package rpc.user;
+option go_package = "rpc/user";
+
+// User service get user information
+service User {
+  // GetUser get a user by id
+  rpc GetUser(GetUserReq) returns (UserRes);
+
+  // GetUsers get a user list
+  rpc GetUsers(GetUsersReq) returns (GetUsersRes);
+}
+
+message GetUserReq { int32 id = 1; }
+
+message UserRes {
+  int32 id = 1;
+  string name = 2;
+  string ctime = 3;
+  string mtime = 4;
+}
+
+message GetUsersReq{ string name = 1; }
+
+message GetUsersRes { repeated UserRes users = 1; }

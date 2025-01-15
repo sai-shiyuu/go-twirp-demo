@@ -1,0 +1,34 @@
+GET http://localhost:8080/getSHA256?password='abc123456' HTTP/1.1
+
+POST http://localhost:8080/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Bob",
+    "password": "abc123456"
+}
+
+POST http://localhost:8080/login HTTP/1.1
+content-type: application/json
+
+{
+    "id": 1,
+    "password": "abc123456"
+}
+
+GET  http://localhost:8080/user?id=1 HTTP/1.1
+Authorization: 1 a1761dc0-9023-48d7-9f34-cadf07d99c33
+
+
+GET  http://localhost:8080/getUsersByName?name='Bob' or 1=1 HTTP/1.1
+
+
+PUT http://localhost:8080/user HTTP/1.1
+content-type: application/json
+
+{
+    "id": 2,
+    "name": "Candy"
+}
+
+DELETE http://localhost:8080/user?id=2 HTTP/1.1
