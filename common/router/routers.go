@@ -1,6 +1,8 @@
 package router
 
 import (
+	"context"
+	"go-web/common/hooks"
 	"go-web/internal/loginserver"
 	"go-web/internal/testserver"
 	"go-web/internal/userserver"
@@ -14,6 +16,7 @@ import (
 
 func Routers() *http.ServeMux {
 	mux := http.NewServeMux()
+	hooks := hooks.NewServerHooks()
 
 	lserver := &loginserver.LoginServer{}
 	loginHandler := login.
@@ -38,12 +41,23 @@ func Routers() *http.ServeMux {
 	userserver := &userserver.UserServer{}
 	userHandler := user.NewUserServer(
 		userserver,
+		twirp.WithServerHooks(hooks),
 		twirp.WithServerPathPrefix(""),
 	)
 	mux.Handle(
 		userHandler.PathPrefix(),
-		userHandler,
+		WithAuth(userHandler),
 	)
 
 	return mux
+}
+
+func WithAuth(base http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+		auth := r.Header.Get("Authorization")
+		ctx = context.WithValue(ctx, "auth", auth)
+		r = r.WithContext(ctx)
+		base.ServeHTTP(w, r)
+	})
 }
