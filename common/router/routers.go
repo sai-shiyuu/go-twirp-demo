@@ -56,7 +56,7 @@ func WithAuth(base http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		auth := r.Header.Get("Authorization")
-		ctx = context.WithValue(ctx, "auth", auth)
+		ctx = context.WithValue(ctx, hooks.AuthHeader("auth"), auth)
 		r = r.WithContext(ctx)
 		base.ServeHTTP(w, r)
 	})

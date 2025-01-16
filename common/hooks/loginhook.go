@@ -13,6 +13,8 @@ import (
 	"github.com/twitchtv/twirp"
 )
 
+type AuthHeader string
+
 var logger *logrus.Logger
 
 func init() {
@@ -29,7 +31,7 @@ func NewServerHooks() *twirp.ServerHooks {
 		RequestReceived: func(ctx context.Context) (context.Context, error) {
 			logger.Infof("Request received.%v", ctx)
 
-			authHeader := ctx.Value("auth").(string)
+			authHeader := ctx.Value(AuthHeader("auth")).(string)
 			if authHeader == "" {
 				return ctx, twirp.NewError(twirp.Unauthenticated, "no authorization header")
 			}
