@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package rpc.login;
+option go_package = "rpc/login";
+
+// Login service
+service Login {
+  // GetUser get a user by id
+  rpc Register(RegisterReq) returns (RegisterRes);
+
+  // GetUsers get a user list
+  rpc Login(LoginReq) returns (LoginRes);
+}
+
+message RegisterReq {
+  string name = 1;
+  string password = 2;
+}
+
+message RegisterRes {
+  int64 code = 1;
+}
+
+message LoginReq {
+  int64 id = 1;
+  string password = 2;
+}
+
+message LoginRes {
+  string token = 1;
+}

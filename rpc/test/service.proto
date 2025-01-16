@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package rpc.test;
+option go_package = "rpc/test";
+
+// Login service
+service Test {
+  // test sha256
+  rpc SHA256(SHA256Req) returns (SHA256Res);
+
+}
+
+message SHA256Req {
+  string password = 1;
+}
+
+message SHA256Res {
+  string sha256 = 1;
+}
+

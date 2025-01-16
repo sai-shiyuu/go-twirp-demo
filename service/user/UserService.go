@@ -4,7 +4,7 @@ import (
 	db "go-web/repostory/user"
 )
 
-func GetUser(id int32) (*db.User, error) {
+func GetUser(id int64) (*db.User, error) {
 	return db.GetUser(id)
 }
 

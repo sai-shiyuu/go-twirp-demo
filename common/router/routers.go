@@ -1,9 +1,11 @@
 package router
 
 import (
-	"go-web/internal/haberdasherserver"
+	"go-web/internal/loginserver"
+	"go-web/internal/testserver"
 	"go-web/internal/userserver"
-	"go-web/rpc/haberdasher"
+	"go-web/rpc/login"
+	"go-web/rpc/test"
 	"go-web/rpc/user"
 	"net/http"
 
@@ -13,14 +15,24 @@ import (
 func Routers() *http.ServeMux {
 	mux := http.NewServeMux()
 
-	hbserver := &haberdasherserver.Server{} // implements Haberdasher interface
-	haberdasherHandler := haberdasher.
-		NewHaberdasherServer(
+	lserver := &loginserver.LoginServer{}
+	loginHandler := login.
+		NewLoginServer(
+			lserver,
+			twirp.WithServerPathPrefix(""))
+	mux.Handle(
+		loginHandler.PathPrefix(),
+		loginHandler,
+	)
+
+	hbserver := &testserver.Server{}
+	testHandler := test.
+		NewTestServer(
 			hbserver,
 			twirp.WithServerPathPrefix(""))
 	mux.Handle(
-		haberdasherHandler.PathPrefix(),
-		haberdasherHandler,
+		testHandler.PathPrefix(),
+		testHandler,
 	)
 
 	userserver := &userserver.UserServer{}

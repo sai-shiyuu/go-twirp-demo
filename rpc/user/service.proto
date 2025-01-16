@@ -12,10 +12,10 @@ service User {
   rpc GetUsers(GetUsersReq) returns (GetUsersRes);
 }
 
-message GetUserReq { int32 id = 1; }
+message GetUserReq { int64 id = 1; }
 
 message UserRes {
-  int32 id = 1;
+  int64 id = 1;
   string name = 2;
   string ctime = 3;
   string mtime = 4;

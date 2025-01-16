@@ -15,13 +15,14 @@ func init() {
 }
 
 type User struct {
-	Id    int32
-	Name  string
-	Ctime string
-	Mtime string
+	Id       int64
+	Name     string
+	Password string
+	Ctime    string
+	Mtime    string
 }
 
-func GetUser(id int32) (*User, error) {
+func GetUser(id int64) (*User, error) {
 	row, err := db.QueryRow("select * from t_user where id = ?", id)
 	if err != nil {
 		logger.Error(err)
@@ -29,7 +30,7 @@ func GetUser(id int32) (*User, error) {
 	}
 
 	u := User{}
-	err = row.Scan(&u.Id, &u.Name, &u.Ctime, &u.Mtime)
+	err = row.Scan(&u.Id, &u.Name, &u.Password, &u.Ctime, &u.Mtime)
 	if err != nil {
 		logger.Error(err)
 		return nil, errors.New("user scan error")
@@ -47,7 +48,7 @@ func GetUsers(name string) ([]*User, error) {
 	users := []*User{}
 	for rows.Next() {
 		u := User{}
-		err = rows.Scan(&u.Id, &u.Name, &u.Ctime, &u.Mtime)
+		err = rows.Scan(&u.Id, &u.Name, &u.Password, &u.Ctime, &u.Mtime)
 		if err != nil {
 			logger.Error(err)
 			return nil, errors.New("user scan error")
@@ -55,4 +56,13 @@ func GetUsers(name string) ([]*User, error) {
 		users = append(users, &u)
 	}
 	return users, err
+}
+
+func AddUser(u User) (num int64, err error) {
+	res, err := db.Exec("insert into t_user(name, password) values(?, ?)", u.Name, u.Password)
+	if err != nil {
+		logger.Error(err)
+		return 0, errors.New("add user error")
+	}
+	return res.RowsAffected()
 }

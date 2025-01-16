@@ -52,3 +52,19 @@ func QueryRows(sql string, args ...interface{}) (*sql.Rows, error) {
 	rows, err := stmt.Query(args...)
 	return rows, err
 }
+
+func Exec(sql string, args ...interface{}) (sql.Result, error) {
+	db, err := getDB()
+	if err != nil {
+		logger.Error(err)
+		return nil, errors.New("get db error")
+	}
+	defer db.Close()
+	stmt, err := db.Prepare(sql)
+	if err != nil {
+		logger.Error(err)
+		return nil, errors.New("prepare error")
+	}
+	result, err := stmt.Exec(args...)
+	return result, err
+}
