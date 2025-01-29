@@ -1,4 +1,4 @@
-# Go Web Project
+# Go Web Project Demo
 
 This is a web application built using the Go programming language.
 
@@ -7,7 +7,6 @@ This is a web application built using the Go programming language.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
@@ -15,10 +14,34 @@ This is a web application built using the Go programming language.
 To install the project, clone the repository and navigate to the project directory:
 
 ```sh
-git clone https://github.com/yourusername/go-web.git
-cd go-web
+git clone git@github.com:sai-shiyuu/go-twirp-demo.git
+cd go-twirp-demo
 ```
 
+First, download and install Golang
+https://go.dev/dl/
+
+extract
+```sh
+sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz
+```
+Add to system env
+```sh
+sudo nvim /etc/profile
+```
+add the following script
+```
+export GOBIN=/home/yourname/go
+export PATH=$PATH:/usr/local/go/bin:$GOBIN
+```
+reboot system
+
+Then install the protobuf and twirp
+```sh
+sudo pacman -Syu protobuf
+go install github.com/twitchtv/twirp/protoc-gen-twirp@latest
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+```
 Then, build the project:
 
 ```sh
@@ -27,31 +50,33 @@ go build
 
 ## Usage
 
+To generate twirp framework code
+
+```sh
+protoc --go_out=. --twirp_out=. rpc/user/service.proto
+```
+
 To run the application, execute the following command:
 
 ```sh
-./go-web
+go run .
 ```
 
 Open your web browser and navigate to `http://localhost:8080` to see the application in action.
 
+API test file
+```
+project/common/request.http
+```
 ## Features
 
-- Feature 1: Description of feature 1
-- Feature 2: Description of feature 2
-- Feature 3: Description of feature 3
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request.
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature-branch`)
-3. Make your changes
-4. Commit your changes (`git commit -am 'Add new feature'`)
-5. Push to the branch (`git push origin feature-branch`)
-6. Create a new Pull Request
+- Protocol: twirp rpc
+- Database connection: MariaDB
+- Cache: Redis
+- Logging: logrus
+- Password encrypt: sha256
+- Job: cron(waitting)
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is just a demo.
