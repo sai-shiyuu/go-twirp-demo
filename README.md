@@ -58,11 +58,11 @@ protoc --go_out=. --twirp_out=. rpc/user/service.proto
 
 Cron Common Examples:
 
-- */1 * * * *: Every minute
-- 0 0 * * *: Every day at midnight
-- 0 10 * * MON-FRI: At 10:00 AM on weekdays
-- 0 0 1 * *: On the 1st of every month at midnight
-- 0 0 * * 0: Every Sunday at midnight
+    */1 * * * *: Every minute
+    0 0 * * *: Every day at midnight
+    0 10 * * MON-FRI: At 10:00 AM on weekdays
+    0 0 1 * *: On the 1st of every month at midnight
+    0 0 * * 0: Every Sunday at midnight
 
 ## Usage
 
