@@ -5,6 +5,7 @@ This is a web application built using the Go programming language.
 ## Table of Contents
 
 - [Installation](#installation)
+- [Tips](#tips)
 - [Usage](#usage)
 - [Features](#features)
 - [License](#license)
@@ -47,14 +48,23 @@ Then, build the project:
 ```sh
 go build
 ```
-
-## Usage
+## Tips
 
 To generate twirp framework code
 
 ```sh
 protoc --go_out=. --twirp_out=. rpc/user/service.proto
 ```
+
+Cron Common Examples:
+
+- */1 * * * *: Every minute
+- 0 0 * * *: Every day at midnight
+- 0 10 * * MON-FRI: At 10:00 AM on weekdays
+- 0 0 1 * *: On the 1st of every month at midnight
+- 0 0 * * 0: Every Sunday at midnight
+
+## Usage
 
 To run the application, execute the following command:
 
@@ -75,7 +85,7 @@ project/common/request.http
 - Cache: Redis
 - Logging: logrus
 - Password encrypt: sha256
-- Job: cron(waitting)
+- Job: cron
 
 ## License
 
