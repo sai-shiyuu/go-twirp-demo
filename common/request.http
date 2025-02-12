@@ -22,7 +22,7 @@ content-type: application/json
 }
 
 POST  http://localhost:8080/rpc.user.User/GetUser HTTP/1.1
-Authorization: 3 470cd62a-1fa8-4ff1-a188-b2279290d389
+Authorization: 1 d0c75fd0-7441-484f-bbe7-d3a6beb01c37
 content-type: application/json
 
 {
@@ -31,7 +31,7 @@ content-type: application/json
 
 
 POST  http://localhost:8080/rpc.user.User/GetUsers HTTP/1.1
-Authorization: 3 470cd62a-1fa8-4ff1-a188-b2279290d389
+Authorization: 3 d0c75fd0-7441-484f-bbe7-d3a6beb01c37
 content-type: application/json
 
 {
