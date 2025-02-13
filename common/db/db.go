@@ -3,7 +3,9 @@ package db
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 
+	"go-web/common/config"
 	"go-web/common/log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -17,7 +19,15 @@ func init() {
 }
 
 func getDB() (*sql.DB, error) {
-	dsn := "root:qq100600@tcp(localhost:3306)/test?loc=Local"
+	dbcon := config.Configs.Database
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?loc=Local",
+		dbcon.Username,
+		dbcon.Password,
+		dbcon.Host,
+		dbcon.Port,
+		dbcon.Database)
+	fmt.Println(dsn)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		logger.Error(err)

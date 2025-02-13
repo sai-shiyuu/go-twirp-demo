@@ -1,0 +1,29 @@
+[dev]
+    [dev.server]
+        port = 8080
+    [dev.database]
+        host = "localhost"
+        port = 3306
+        username = "root"
+        password = ""
+        database = "test"
+    [dev.redis]
+        host = "localhost"
+        port = 6379
+        password = ""
+        db = 0
+
+[prod]
+    [prod.server]
+        port = 8080
+    [prod.database]
+        host = "192.168.0.47"
+        port = 3306
+        username = "root"
+        password = ""
+        database = "test"
+    [prod.redis]
+        host = "192.168.0.47"
+        port = 6379
+        password = ""
+        db = 0
