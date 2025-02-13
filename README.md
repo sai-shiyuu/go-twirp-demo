@@ -79,8 +79,7 @@ API test file
 project/common/request.http
 ```
 
-or if you want to run the application in docker, change the IP address of mariadb and redis.
-and the execute the following command:
+or if you want to run the application in docker,  execute the following command:
 ```
 docker build -t go-twirp-demo .
 docker run -p 8080:8080 -d go-twirp-demo
