@@ -24,7 +24,7 @@ https://go.dev/dl/
 
 extract
 ```sh
-sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.**.*.linux-amd64.tar.gz
 ```
 Add to system env
 ```sh
