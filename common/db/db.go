@@ -59,6 +59,7 @@ func QueryRows(sql string, args ...interface{}) (*sql.Rows, error) {
 		logger.Error(err)
 		return nil, errors.New("prepare error")
 	}
+	defer stmt.Close()
 	rows, err := stmt.Query(args...)
 	return rows, err
 }
@@ -75,6 +76,7 @@ func Exec(sql string, args ...interface{}) (sql.Result, error) {
 		logger.Error(err)
 		return nil, errors.New("prepare error")
 	}
+	defer stmt.Close()
 	result, err := stmt.Exec(args...)
 	return result, err
 }
